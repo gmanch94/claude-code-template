@@ -1,6 +1,6 @@
 ---
 name: doc-ci-check
-description: Doc-CI gate for repos whose deliverable includes a document set. Scans for (1) count drift across README/CLAUDE.md/NEXT_SESSION.md/prompts indices, (2) broken relative links, (3) skill↔prompt↔CLAUDE.md↔README↔prompts/README parity, (4) ungraded external facts, (5) markdown table pipe-integrity (stray-pipe phantom tables). Severity-grouped report. Use BEFORE shipping any docs commit, AFTER adding a skill/prompt/hook, and as a pre-commit gate. Pair with `.github/workflows/doc-ci.yml` for CI enforcement.
+description: Doc-CI gate for repos whose deliverable includes a document set. Scans for (1) count drift across README/CLAUDE.md/NEXT_SESSION.md/prompts indices, (2) broken relative links, (3) skill↔prompt↔docs/AUTOMATION.md↔README↔prompts/README parity, (4) ungraded external facts, (5) markdown table pipe-integrity (stray-pipe phantom tables). Severity-grouped report. Use BEFORE shipping any docs commit, AFTER adding a skill/prompt/hook, and as a pre-commit gate. Pair with `.github/workflows/doc-ci.yml` for CI enforcement.
 ---
 
 # /doc-ci-check — Doc-CI Gate
@@ -10,7 +10,7 @@ Encodes the manual stale-check ritual into a single command. Pre-ship gate that 
 ## When to invoke
 
 - **BEFORE any commit** touching `README.md` / `CLAUDE.md` / `NEXT_SESSION.md` / `prompts/README.md` / `.claude/hooks/README.md` / `stacks/README.md`
-- **AFTER adding a skill** (verifies all 5 artifacts landed: skill + prompt + CLAUDE row + README row + prompts/README row — except for facilitator/workflow skills on the exempt list)
+- **AFTER adding a skill** (verifies all 5 artifacts landed: skill + prompt + AUTOMATION row + README row + prompts/README row — except for facilitator/workflow skills on the exempt list)
 - **AFTER adding a hook** (verifies inventory tables, framing claims, and counts updated everywhere)
 - **WEEKLY** as a routine via `/schedule` if the repo's deliverable is docs/skills
 - **BEFORE merging a docs PR** as the content equivalent of a green test suite
@@ -34,7 +34,7 @@ None. Operates on the current working tree.
    c. **Skill ↔ artifact parity** for each skill in `.claude/skills/`:
       - Has `SKILL.md`? (required)
       - Has matching `prompts/<name>.md`? (required UNLESS in exempt list — see below)
-      - Mentioned in `CLAUDE.md`? (required)
+      - Mentioned in `docs/AUTOMATION.md`? (required)
       - Mentioned in `README.md`'s slash-command tables? (required UNLESS exempt — same list)
       - Listed in `prompts/README.md` index? (required UNLESS exempt)
 
@@ -49,7 +49,7 @@ None. Operates on the current working tree.
 2. **Group findings by severity:**
    - **CRITICAL** — broken link, NEXT_SESSION HEAD mismatch, skill with no SKILL.md, missing required artifact
    - **HIGH** — count drift (off by 2x or more), reverse-parity violation
-   - **MEDIUM** — count drift (off by <2x), skill mentioned in CLAUDE.md but missing from README slash-command table
+   - **MEDIUM** — count drift (off by <2x), skill mentioned in docs/AUTOMATION.md but missing from README slash-command table
    - **LOW** — ungraded external fact, missing optional REFERENCE.md when SKILL.md exceeds 500 lines
 
 3. **Produce the report** (see Output section).
@@ -60,7 +60,7 @@ None. Operates on the current working tree.
 
 ## Exempt list (skills with no prompt template by design)
 
-These skills are workflow / facilitator / agent-spawning — they ARE the prompt or spawn a subagent rather than parameterize an LLM system prompt. They get an index entry in CLAUDE.md only (no prompt file, no prompts/README index row):
+These skills are workflow / facilitator / agent-spawning — they ARE the prompt or spawn a subagent rather than parameterize an LLM system prompt. They get an index entry in docs/AUTOMATION.md only (no prompt file, no prompts/README index row):
 
 ```
 adr  api-audit  doc-ci-check  office-hours  prompt-review  retro  review  rollback-checkpoint  security-audit  security-model-init  tradeoff

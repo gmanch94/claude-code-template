@@ -63,11 +63,11 @@ The Claude Code lifecycle. The template treats these events as attach points rat
 
 ## Layer 2 — Capability library (the product)
 
-- **`.claude/skills/`** — 164 skills, each a directory with a `SKILL.md`. They span the lifecycle: discovery & framing, EDA & statistics, data engineering & quality, modeling & algorithms, domain ML (NLP / CV / audio / time-series / graph / geospatial), validation & responsible AI, MLOps & deployment, LLM · agents · guardrails, and cloud / Databricks / auth-security. The full indexed list lives in [`CLAUDE.md`](CLAUDE.md) § Automation.
+- **`.claude/skills/`** — 164 skills, each a directory with a `SKILL.md`. They span the lifecycle: discovery & framing, EDA & statistics, data engineering & quality, modeling & algorithms, domain ML (NLP / CV / audio / time-series / graph / geospatial), validation & responsible AI, MLOps & deployment, LLM · agents · guardrails, and cloud / Databricks / auth-security. The full indexed list lives in [`docs/AUTOMATION.md`](docs/AUTOMATION.md).
 - **`prompts/`** — 174 system-prompt templates, a 1:1 parametric mirror of the parameterizable skills, each with placeholders, usage notes, and a health score. Index: [`prompts/README.md`](prompts/README.md).
 - **`stacks/`** — 3 language add-ons (`python`, `typescript`, `go`), each shipping `/test-gen`, `/type-fix`, `/deps-audit`. Copy into `.claude/skills/` to adopt.
 
-**Skill-authoring contract (load-bearing):** a skill is not "done" until 5 artifacts exist — `SKILL.md` + `prompts/<name>.md` + a row in [`CLAUDE.md`](CLAUDE.md) + a row in [`README.md`](README.md) + a row in [`prompts/README.md`](prompts/README.md). Facilitator / operator skills are exempt from the prompt-template requirement. `/doc-ci-check` and `doc-ci.yml` enforce this parity.
+**Skill-authoring contract (load-bearing):** a skill is not "done" until 5 artifacts exist — `SKILL.md` + `prompts/<name>.md` + a row in [`docs/AUTOMATION.md`](docs/AUTOMATION.md) + a row in [`README.md`](README.md) + a row in [`prompts/README.md`](prompts/README.md). Facilitator / operator skills are exempt from the prompt-template requirement. `/doc-ci-check` and `doc-ci.yml` enforce this parity.
 
 ## Layer 3 — Governance (fail-safe guardrails)
 
@@ -81,7 +81,7 @@ The files that persist context across `/clear`, `/compact`, and new sessions:
 
 | File | Role |
 |---|---|
-| [`CLAUDE.md`](CLAUDE.md) | Auto-loaded posture + the skill/automation index |
+| [`CLAUDE.md`](CLAUDE.md) | Auto-loaded posture; skill/automation index now in `docs/AUTOMATION.md` |
 | [`README.md`](README.md) | Human-facing index and setup guide |
 | [`NEXT_SESSION.md`](NEXT_SESSION.md) | Resume bookmark — HEAD, what landed, what's held, what not to do |
 | [`LESSONS_LEARNED.md`](LESSONS_LEARNED.md) | Process lessons that accumulate across sessions |
