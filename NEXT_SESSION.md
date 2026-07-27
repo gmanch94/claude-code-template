@@ -2,7 +2,17 @@
 
 Resume point after `/clear` or a new session. Read this first before any tool calls beyond orientation.
 
-**Last working session:** 2026-07-18. **Current branch:** `master`. **HEAD = dc2cb0d** (`chore(hooks): land cordon-generated DLP bundles over the wired hooks`) — see "This session (2026-07-18)" below. Prior (2026-07-11, `e0bba2b`) — this session applied `~/.claude/rules/markdown-render-gotchas.md` across all repo `.md`: fixed a real GFM table-corruption in `conformal-uncertainty` (in-cell abs-value pipes were shredding the row + dropping the rightmost column), added a **md-table pipe-integrity gate** to doc-ci (step 5 = `scripts/check_md_tables.py`), filled a missing `cdc-design` Cost cell, and middot-swapped the one kramdown-risky list. All **pushed**; doc-ci (incl. new step 5) + dlp-scan **green on the runner**. Prior: `ARCHITECTURE.md` + `SECURITY.md` + mermaid verify (`91d8585`); DLP suite (`36851d3`, wired locally). Bookmark-refresh commit lags HEAD by one (this file's own commit).
+**Last working session:** 2026-07-27. **Current branch:** `master`. **HEAD = bfd0128** (`chore(dlp): regen dlp_fingerprint_scan from cordon canonical core`). This session (2026-07-27): ran `/doctor`; split the CLAUDE.md skill catalog to `docs/AUTOMATION.md` — **PR open** (`docs/split-automation-catalog`), not merged. Prior HEAD `dc2cb0d` (`chore(hooks): land cordon-generated DLP bundles over the wired hooks`) — see "This session (2026-07-18)" below. Prior (2026-07-11, `e0bba2b`) — this session applied `~/.claude/rules/markdown-render-gotchas.md` across all repo `.md`: fixed a real GFM table-corruption in `conformal-uncertainty` (in-cell abs-value pipes were shredding the row + dropping the rightmost column), added a **md-table pipe-integrity gate** to doc-ci (step 5 = `scripts/check_md_tables.py`), filled a missing `cdc-design` Cost cell, and middot-swapped the one kramdown-risky list. All **pushed**; doc-ci (incl. new step 5) + dlp-scan **green on the runner**. Prior: `ARCHITECTURE.md` + `SECURITY.md` + mermaid verify (`91d8585`); DLP suite (`36851d3`, wired locally). Bookmark-refresh commit lags HEAD by one (this file's own commit).
+
+---
+
+## This session (2026-07-27) — /doctor pass + CLAUDE.md catalog split
+
+Ran `/doctor` (setup health check). One repo change shipped as a PR; user-global config changes applied directly.
+
+- **CLAUDE.md was 62.9k chars** — tripping Claude Code's ~40k large-memory-file warning. ~54k of it was the skill/automation catalog, which duplicates the harness's own per-session skill listing. **Moved verbatim to `docs/AUTOMATION.md`**, left a pointer; CLAUDE.md is now 8.7k. Retargeted the doc-ci skill-index parity (workflow step 3 + `/doc-ci-check` skill) and `ARCHITECTURE.md` from `CLAUDE.md` → `docs/AUTOMATION.md`. Local doc-ci **green** (parity 0/164 missing, links + md-table gate clean). Shipped as **PR `docs/split-automation-catalog`** — NOT merged (merge on explicit instruction).
+- **User-global config (not in this repo; already applied):** default permission mode → `auto`; disabled 2 redundant duplicate plugins (`frontend-design@claude-plugins-official`, `document-skills@anthropic-agent-skills` — the bundled anthropic skill set already provides their skills); updated Claude Code `2.1.139 → 2.1.220`.
+- Install / settings / agent-defs / hooks otherwise healthy. No read-only-command allowlist needed (the 13 in-window denials were all WebFetch / control-tool / a temp-write — none allowlist-eligible).
 
 ---
 

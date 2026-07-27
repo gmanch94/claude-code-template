@@ -7,7 +7,7 @@ name: doc-ci
 # Catches:
 #   1. Count drift  (declared N vs actual N in README/CLAUDE.md/NEXT_SESSION/prompts-README/hooks-README)
 #   2. Broken relative links in root *.md files
-#   3. Skill ↔ prompt ↔ CLAUDE.md ↔ README ↔ prompts/README parity (excluding exempt list)
+#   3. Skill ↔ prompt ↔ docs/AUTOMATION.md ↔ README ↔ prompts/README parity (excluding exempt list)
 #   4. NEXT_SESSION.md HEAD vs git HEAD
 #   5. Markdown table pipe integrity — stray-pipe phantom cells in real tables
 #
@@ -19,6 +19,7 @@ on:
     paths:
       - "README.md"
       - "CLAUDE.md"
+      - "docs/AUTOMATION.md"
       - "NEXT_SESSION.md"
       - "LESSONS_LEARNED.md"
       - "prompts/**"
@@ -34,6 +35,7 @@ on:
     paths:
       - "README.md"
       - "CLAUDE.md"
+      - "docs/AUTOMATION.md"
       - "NEXT_SESSION.md"
       - "LESSONS_LEARNED.md"
       - "prompts/**"
@@ -183,8 +185,8 @@ jobs:
 
             # Tight grep: match `/<skill>` (slash-prefixed) or `\`<skill>\`` (backtick-wrapped) ONLY.
             # `grep -q "$s"` (loose) would mis-match e.g. `eda` against `edamame` or `read-only`.
-            if ! grep -qE "(/${s}\b|\`${s}\`|\[\`${s}\.md\`\])" CLAUDE.md 2>/dev/null; then
-              echo "::error file=CLAUDE.md::Skill $s not indexed in CLAUDE.md"
+            if ! grep -qE "(/${s}\b|\`${s}\`|\[\`${s}\.md\`\])" docs/AUTOMATION.md 2>/dev/null; then
+              echo "::error file=docs/AUTOMATION.md::Skill $s not indexed in docs/AUTOMATION.md"
               fail=1
             fi
 
